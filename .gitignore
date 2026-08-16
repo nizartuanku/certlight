@@ -1,0 +1,6 @@
+/certwatch
+*.db
+license.key
+issuer.key
+dist/
+node_modules/
