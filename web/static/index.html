@@ -260,9 +260,12 @@ function render(sum, findings, targets) {
 async function refreshLicense() {
   try {
     const lic = await j("/api/license");
-    $("licinfo").textContent = lic.email
-      ? `${lic.tier.toUpperCase()} — licensed to ${lic.email}, valid until ${new Date(lic.expires_at).toLocaleDateString()}`
-      : "Free edition — up to 10 targets, webhook notifications, 7-day history.";
+    // Only override for a licensed key; the free line is set by render() from
+    // the product's own limits (targets vs configs vs sources, real retention).
+    if (lic.email) {
+      $("licinfo").textContent =
+        `${lic.tier.toUpperCase()} — licensed to ${lic.email}, valid until ${new Date(lic.expires_at).toLocaleDateString()}`;
+    }
   } catch (e) {}
 }
 
