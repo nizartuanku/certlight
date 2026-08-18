@@ -140,6 +140,12 @@ func Verify(pub ed25519.PublicKey, product, key string, now time.Time) (License,
 	if err != nil {
 		return License{}, ErrMalformed
 	}
+	// A free/open-source build bakes no issuer key (empty pub). ed25519.Verify
+	// panics on a wrong-length key, so treat any non-standard key as a plain
+	// signature failure — the caller downgrades to free limits, never crashes.
+	if len(pub) != ed25519.PublicKeySize {
+		return License{}, ErrBadSignature
+	}
 	if !ed25519.Verify(pub, payload, sig) {
 		return License{}, ErrBadSignature
 	}

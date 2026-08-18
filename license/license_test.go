@@ -104,6 +104,21 @@ func TestActivate_EmptyAndGarbageKeys(t *testing.T) {
 	}
 }
 
+// The free/open-source edition bakes no issuer key (empty pub). A user pasting
+// any license key must downgrade to free limits, never panic ed25519.Verify.
+func TestActivate_EmptyPubkeyDoesNotPanic(t *testing.T) {
+	key, _ := issueKey(t, TierPro, "certwatch", now.AddDate(0, 1, 0))
+	for _, pub := range [][]byte{nil, {}, make([]byte, 5)} {
+		a := Activate(pub, "certwatch", key, now) // must not panic
+		if a.Tier != TierFree {
+			t.Fatalf("empty/short pubkey must resolve to free tier, got %s", a.Tier)
+		}
+		if a.Notice == "" {
+			t.Fatal("a real key that can't be verified should surface a notice")
+		}
+	}
+}
+
 func TestActivate_ValidProUnlocks(t *testing.T) {
 	key, pub := issueKey(t, TierPro, "certwatch", now.AddDate(0, 1, 0))
 	a := Activate(pub, "certwatch", key, now)
