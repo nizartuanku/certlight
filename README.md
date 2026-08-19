@@ -47,7 +47,7 @@ Open `http://127.0.0.1:8422`, add your first host, and see results in seconds.
 | Support | Community | Email | Priority |
 
 Pro ($19/mo) and Team ($49/mo) licenses, each with a 14-day free trial:
-**https://whop.com/nizar-tuanku/certwatch-tls-monitor**
+**https://whop.com/nizar-tuanku/certwatch-tls-monitor?utm_source=github**
 
 A license key activates instantly and validates **offline** — CertWatch never needs to reach our servers. An expired key never bricks the product; it simply returns to free limits.
 
@@ -88,4 +88,4 @@ Available on every tier, free included.
 ## Built by
 
 A practising network security engineer. Part of the Sentinel line of self-hosted security tools.
-Cisco Secure Firewall operations? See [Firewall Operations Platform](https://whop.com/nizar-tuanku/firewall-ops-platform).
+Cisco Secure Firewall operations? See [Firewall Operations Platform](https://whop.com/nizar-tuanku/firewall-ops-platform?utm_source=github).
