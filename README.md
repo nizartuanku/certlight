@@ -2,6 +2,12 @@
 
 **Self-hosted TLS & certificate monitoring — with the configuration audit most uptime tools skip.**
 
+![CertWatch finding a weak TLS configuration, then closing the findings by itself once the server is fixed](docs/demo.gif)
+
+*Real run: a host with a 1024-bit SHA-1 certificate expiring in 11 days, on a server that still
+accepts TLS 1.1. The certificate is rotated and the protocol floor raised — and on the next scan
+all five findings resolve on their own. Nothing was acknowledged by hand.*
+
 Certificates expire silently and take production down with them. CertWatch watches yours from your own server, and goes beyond "days remaining":
 
 - **Expiry countdown** with staged severity (30 / 14 / 7 / 1 days) across all your hosts
