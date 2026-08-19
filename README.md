@@ -56,6 +56,28 @@ A license key activates instantly and validates **offline** — CertWatch never 
 - Linux (Ubuntu 22.04+ recommended), amd64
 - Network reachability to the hosts you want to monitor
 
+## Working with the other Sentinel tools
+
+Every tool in the line can emit its findings as syslog, which is how they feed
+each other:
+
+```bash
+certwatch -syslog loglight.internal:5514        # udp by default
+certwatch -syslog loglight.internal:5514 -syslog-network tcp
+```
+
+One RFC 3164 frame per finding, severity mapped onto the syslog severity so
+your collector's existing routing rules still work, and the source address
+carried in `src=` when the finding has one.
+
+Point it at [Loglight](https://github.com/nizartuanku/loglight) and its findings
+land next to Loglight's own detections: a Decoy trip from an address Loglight
+already saw port-scanning is raised as one critical incident with the timeline
+attached, rather than two alerts you have to join up yourself. Any other syslog
+collector works too — there is nothing Sentinel-specific about the format.
+
+Available on every tier, free included.
+
 ## Honest limits
 
 - CertWatch is not a full uptime monitor — it watches TLS, not response times or page content.
