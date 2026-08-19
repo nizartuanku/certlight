@@ -42,6 +42,8 @@ func main() {
 	dbPath := flag.String("db", "certwatch.db", "SQLite database path")
 	licFile := flag.String("license", "license.key", "license key file")
 	webhook := flag.String("webhook", "", "webhook URL for notifications (all tiers)")
+	syslogAddr := flag.String("syslog", "", "syslog collector host:port for findings, e.g. 127.0.0.1:5514 (point this at Loglight to correlate across products)")
+	syslogNet := flag.String("syslog-network", "udp", "syslog transport: udp or tcp")
 	slackURL := flag.String("slack-webhook", "", "Slack incoming-webhook URL (Pro/Team)")
 	tgToken := flag.String("telegram-token", "", "Telegram bot token (Pro/Team)")
 	tgChat := flag.String("telegram-chat", "", "Telegram chat id (Pro/Team)")
@@ -94,6 +96,9 @@ func main() {
 	var channels []notify.Channel
 	if *webhook != "" {
 		channels = append(channels, &notify.WebhookChannel{URL: *webhook})
+	}
+	if *syslogAddr != "" {
+		channels = append(channels, &notify.SyslogChannel{Addr: *syslogAddr, Network: *syslogNet})
 	}
 	if *slackURL != "" {
 		if !act.AllowsChannel("slack") {
