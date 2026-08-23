@@ -1,6 +1,6 @@
-# CertWatch — minimal production image.
-# Build:  docker build -t certwatch .
-# Run:    docker run -d -p 127.0.0.1:8422:8422 -v certwatch-data:/data certwatch
+# CertLight — minimal production image.
+# Build:  docker build -t certlight .
+# Run:    docker run -d -p 127.0.0.1:8422:8422 -v certlight-data:/data certlight
 
 FROM golang:1.24-bookworm AS build
 WORKDIR /src
@@ -13,19 +13,19 @@ COPY . .
 ARG ISSUER_PUBKEY=""
 RUN CGO_ENABLED=1 go build -trimpath \
     -ldflags "-s -w -X main.issuerPublicKeyB64=${ISSUER_PUBKEY}" \
-    -o /out/certwatch ./cmd/certwatch
+    -o /out/certlight ./cmd/certlight
 
 FROM debian:bookworm-slim
 # /data is created and chowned here so a named volume inherits the app user's
 # ownership. Without it the volume defaults to root:root and the unprivileged
 # process cannot create its database.
-RUN useradd -r -u 10001 certwatch \
+RUN useradd -r -u 10001 certlight \
  && apt-get update && apt-get install -y --no-install-recommends ca-certificates \
  && rm -rf /var/lib/apt/lists/* \
  && mkdir -p /data \
- && chown certwatch:certwatch /data
-COPY --from=build /out/certwatch /usr/local/bin/certwatch
-USER certwatch
+ && chown certlight:certlight /data
+COPY --from=build /out/certlight /usr/local/bin/certlight
+USER certlight
 VOLUME /data
 EXPOSE 8422
-ENTRYPOINT ["certwatch", "-listen", "0.0.0.0:8422", "-db", "/data/certwatch.db", "-license", "/data/license.key"]
+ENTRYPOINT ["certlight", "-listen", "0.0.0.0:8422", "-db", "/data/certwatch.db", "-license", "/data/license.key"]

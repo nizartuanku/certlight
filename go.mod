@@ -1,4 +1,4 @@
-module github.com/nizartuanku/certwatch
+module github.com/nizartuanku/certlight
 
 go 1.24.7
 
