@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
-	"github.com/nizartuanku/certwatch/store"
+	"github.com/nizartuanku/certlight/core"
+	"github.com/nizartuanku/certlight/store"
 )
 
 // fakeCollector is a scriptable collector for exercising the scheduler.

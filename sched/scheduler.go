@@ -13,8 +13,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
-	"github.com/nizartuanku/certwatch/store"
+	"github.com/nizartuanku/certlight/core"
+	"github.com/nizartuanku/certlight/store"
 )
 
 // Config tunes the scheduler. Zero values fall back to sane defaults, so the
