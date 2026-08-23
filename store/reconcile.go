@@ -3,10 +3,10 @@ package store
 import (
 	"encoding/json"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
-// Reconcile is the heart of Sentinel Core. Given the fresh findings a collector
+// Reconcile is the heart of Hexward Core. Given the fresh findings a collector
 // produced for one (module, target) in one scan, it:
 //
 //  1. validates each fresh finding and rejects malformed ones (loud, not silent),

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 // SQLiteStore is the production Store. It is written against database/sql

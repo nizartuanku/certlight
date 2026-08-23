@@ -4,12 +4,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 // --- test scaffolding -------------------------------------------------------
 
-var testMod = core.ModuleInfo{ID: "certwatch", Name: "CertWatch", ResolveAfter: 1}
+var testMod = core.ModuleInfo{ID: "certwatch", Name: "CertLight", ResolveAfter: 1}
 
 // fixedClock returns a controllable clock so timestamps are deterministic.
 func fixedClock(t *time.Time) Clock { return func() time.Time { return *t } }

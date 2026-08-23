@@ -6,7 +6,7 @@ import (
 	"time"
 
 	_ "github.com/mattn/go-sqlite3" // test driver; release builds swap to modernc.org/sqlite
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 func newSQLiteTest(t *testing.T) *SQLiteStore {

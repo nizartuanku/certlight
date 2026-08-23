@@ -1,5 +1,5 @@
 // Package store holds the persistence layer and the reconcile engine — the
-// piece every Sentinel product depends on. The reconcile algorithm (upsert by
+// piece every Hexward product depends on. The reconcile algorithm (upsert by
 // fingerprint, auto-resolve absent findings, surface newly-open ones for
 // notification) is defined here against the Store interface, so it can be
 // tested with an in-memory store and run against SQLite in production.
@@ -8,7 +8,7 @@ package store
 import (
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 // Record is a Finding as persisted: the finding plus the core-managed
