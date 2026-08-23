@@ -1,4 +1,4 @@
-// Package core defines the two contracts every Sentinel product is built on:
+// Package core defines the two contracts every Hexward product is built on:
 // the normalised Finding and the Collector interface. Nothing in this package
 // knows about TLS, CVEs, firewalls, or any specific product — that intelligence
 // lives in each product's Collector. The core stays generic so that all six
@@ -61,7 +61,7 @@ const (
 // reconcile time (decision #3 in the contracts spec).
 const MaxEvidenceBytes = 64 * 1024
 
-// Finding is the normalised unit of everything Sentinel Core reasons about.
+// Finding is the normalised unit of everything Hexward Core reasons about.
 // A Collector returns []Finding from Collect(); the core owns everything after.
 //
 // Field ownership (see contracts spec §1.3):

@@ -38,7 +38,7 @@ type Collector interface {
 // ModuleInfo is a collector's static metadata, read once at registration.
 type ModuleInfo struct {
 	ID              string        // "certwatch" — becomes Finding.Module
-	Name            string        // "CertWatch"
+	Name            string        // "CertLight"
 	Version         string        // semver
 	TargetKind      string        // human hint: "host:port", "domain", "device"
 	DefaultInterval time.Duration // smart default; user may override (paid tier)
