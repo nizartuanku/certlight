@@ -1,5 +1,5 @@
-// Demo: the first end-to-end run of a Sentinel product against the real
-// internet. Registers CertWatch on the scheduler, scans real hosts once, and
+// Demo: the first end-to-end run of a Hexward product against the real
+// internet. Registers CertLight on the scheduler, scans real hosts once, and
 // prints what the future dashboard will show: decisions, not data.
 package main
 
@@ -9,9 +9,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/nizartuanku/certwatch/certwatch"
-	"github.com/nizartuanku/certwatch/sched"
-	"github.com/nizartuanku/certwatch/store"
+	"github.com/nizartuanku/certlight/certlight"
+	"github.com/nizartuanku/certlight/sched"
+	"github.com/nizartuanku/certlight/store"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 		targets = []string{"google.com", "github.com"}
 	}
 
-	cw := certwatch.New()
+	cw := certlight.New()
 	ms := store.NewMemStore()
 	engine := store.NewEngine(ms)
 	s := sched.New(engine, sched.Config{ScanTimeout: 15 * time.Second})
@@ -38,7 +38,7 @@ func main() {
 		}
 	}
 
-	fmt.Printf("CertWatch — scanning %d target(s)...\n\n", len(targets))
+	fmt.Printf("CertLight — scanning %d target(s)...\n\n", len(targets))
 	start := time.Now()
 	if err := s.ScanNow(context.Background(), "certwatch"); err != nil {
 		panic(err)
