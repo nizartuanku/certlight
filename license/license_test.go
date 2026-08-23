@@ -62,7 +62,7 @@ func TestForeignSignatureIsRejected(t *testing.T) {
 	}
 }
 
-// A CertWatch key must not activate a different product.
+// A CertLight key must not activate a different product.
 func TestWrongProductIsRejected(t *testing.T) {
 	key, pub := issueKey(t, TierPro, "certwatch", now.AddDate(0, 1, 0))
 	if _, err := Verify(pub, "attack-surface", key, now); err == nil {

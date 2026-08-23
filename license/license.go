@@ -1,4 +1,4 @@
-// Package license implements offline-first activation for all Sentinel
+// Package license implements offline-first activation for all Hexward
 // products. A license key is a signed statement — "this email bought this tier
 // of this product until this date" — verified locally with Ed25519. No phone
 // home, ever: a security product that stops working when it cannot reach the
@@ -51,7 +51,7 @@ type Limits struct {
 }
 
 // TierLimits is the single source of truth for what each tier buys.
-// CertWatch's product page must match this table — one place to change.
+// CertLight's product page must match this table — one place to change.
 var TierLimits = map[Tier]Limits{
 	TierFree: {
 		MaxTargets:    10,
