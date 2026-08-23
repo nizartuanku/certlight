@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 func syslogDigest() Digest {

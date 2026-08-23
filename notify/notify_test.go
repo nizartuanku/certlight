@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 // captureChannel records digests it receives.
@@ -247,7 +247,7 @@ func TestFormatText(t *testing.T) {
 		},
 	}
 	text := FormatText(d)
-	for _, want := range []string{"CertWatch", "CRITICAL", "example.com:443", "→ fix it", "resolved", "old.example.com:443"} {
+	for _, want := range []string{"CertLight", "CRITICAL", "example.com:443", "→ fix it", "resolved", "old.example.com:443"} {
 		if !strings.Contains(text, want) {
 			t.Fatalf("formatted text missing %q:\n%s", want, text)
 		}

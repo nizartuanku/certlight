@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 // httpClient is shared by all HTTP channels; kept injectable for tests.
@@ -164,7 +164,7 @@ func (t *TelegramChannel) Send(ctx context.Context, d Digest) error {
 // SyslogChannel emits one RFC 3164 line per finding to a syslog collector over
 // UDP or TCP.
 //
-// This is the channel that lets the Sentinel tools feed each other. Every
+// This is the channel that lets the Hexward tools feed each other. Every
 // product already speaks findings; Loglight already ingests syslog. Pointing
 // one at the other means a Decoy trip and a port scan Loglight saw from the
 // same address arrive as one correlated incident instead of two unrelated

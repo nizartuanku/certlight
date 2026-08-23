@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 // EventKind says why a finding is being announced.

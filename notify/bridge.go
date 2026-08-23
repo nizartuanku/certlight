@@ -1,7 +1,7 @@
 package notify
 
 import (
-	"github.com/nizartuanku/certwatch/sched"
+	"github.com/nizartuanku/certlight/sched"
 )
 
 // BindScheduler wires a scheduler's results into the dispatcher: newly-open

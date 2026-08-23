@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/nizartuanku/certwatch/core"
+	"github.com/nizartuanku/certlight/core"
 )
 
 // FormatText renders a digest as the plain-text message every chat channel
@@ -53,7 +53,7 @@ func severityBadge(s core.Severity) string {
 func productName(module string) string {
 	switch module {
 	case "certwatch":
-		return "CertWatch"
+		return "CertLight"
 	default:
 		return module
 	}
