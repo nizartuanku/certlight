@@ -11,10 +11,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
-	"github.com/nizartuanku/certwatch/license"
-	"github.com/nizartuanku/certwatch/sched"
-	"github.com/nizartuanku/certwatch/store"
+	"github.com/nizartuanku/certlight/core"
+	"github.com/nizartuanku/certlight/license"
+	"github.com/nizartuanku/certlight/sched"
+	"github.com/nizartuanku/certlight/store"
 )
 
 // stubCollector produces one fixed finding per target.
@@ -51,7 +51,7 @@ type env struct {
 
 func newEnv(t *testing.T) *env {
 	t.Helper()
-	mod := core.ModuleInfo{ID: "certwatch", Name: "CertWatch", DefaultInterval: time.Hour}
+	mod := core.ModuleInfo{ID: "certwatch", Name: "CertLight", DefaultInterval: time.Hour}
 	ms := store.NewMemStore()
 	sc := sched.New(store.NewEngine(ms), sched.Config{ScanTimeout: 5 * time.Second})
 	if err := sc.Register(&stubCollector{info: mod}); err != nil {
@@ -97,7 +97,7 @@ func TestAPI_SummaryStartsClean(t *testing.T) {
 	e := newEnv(t)
 	var sum map[string]any
 	e.get(t, "/api/summary", &sum)
-	if sum["product"] != "CertWatch" || sum["tier"] != "free" {
+	if sum["product"] != "CertLight" || sum["tier"] != "free" {
 		t.Fatalf("unexpected summary: %v", sum)
 	}
 	if sum["open_total"] != float64(0) {
@@ -155,7 +155,7 @@ func TestAPI_ScanNowIsPaidFeature(t *testing.T) {
 }
 
 func TestAPI_LicenseActivationUnlocks(t *testing.T) {
-	mod := core.ModuleInfo{ID: "certwatch", Name: "CertWatch", DefaultInterval: time.Hour}
+	mod := core.ModuleInfo{ID: "certwatch", Name: "CertLight", DefaultInterval: time.Hour}
 	ms := store.NewMemStore()
 	sc := sched.New(store.NewEngine(ms), sched.Config{})
 	sc.Register(&stubCollector{info: mod})
@@ -268,7 +268,7 @@ func TestStaticUIIsServed(t *testing.T) {
 // restart" (new scheduler + new server over the same store), exactly as the
 // product binary's boot sequence restores them.
 func TestAPI_TargetsSurviveRestart(t *testing.T) {
-	mod := core.ModuleInfo{ID: "certwatch", Name: "CertWatch", DefaultInterval: time.Hour}
+	mod := core.ModuleInfo{ID: "certwatch", Name: "CertLight", DefaultInterval: time.Hour}
 	ms := store.NewMemStore() // implements TargetStore
 
 	boot := func() (*httptest.Server, *sched.Scheduler) {

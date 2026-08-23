@@ -18,10 +18,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/nizartuanku/certwatch/core"
-	"github.com/nizartuanku/certwatch/license"
-	"github.com/nizartuanku/certwatch/sched"
-	"github.com/nizartuanku/certwatch/store"
+	"github.com/nizartuanku/certlight/core"
+	"github.com/nizartuanku/certlight/license"
+	"github.com/nizartuanku/certlight/sched"
+	"github.com/nizartuanku/certlight/store"
 )
 
 //go:embed static
