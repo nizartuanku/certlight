@@ -1,8 +1,8 @@
-// certwatch is the shippable product binary: CertLight on Hexward Core.
+// certlight is the shippable product binary: CertLight on Hexward Core.
 //
-//	certwatch                     # serves the dashboard on 127.0.0.1:8422
-//	certwatch -listen :8422       # expose beyond localhost (put auth/TLS in front)
-//	certwatch -db certlight.db    # SQLite path (default; ":memory:" for ephemeral)
+//	certlight                     # serves the dashboard on 127.0.0.1:8422
+//	certlight -listen :8422       # expose beyond localhost (put auth/TLS in front)
+//	certlight -db certlight.db    # SQLite path (default; ":memory:" for ephemeral)
 //
 // The five-minute promise: run it, open the dashboard, add a host, see results.
 package main
@@ -77,7 +77,7 @@ func main() {
 	}
 	for _, raw := range saved {
 		if _, err := scheduler.AddTarget(cw.Describe().ID, raw); err != nil {
-			fmt.Fprintf(os.Stderr, "certwatch: skipping saved target %q: %v\n", raw, err)
+			fmt.Fprintf(os.Stderr, "certlight: skipping saved target %q: %v\n", raw, err)
 		}
 	}
 
@@ -152,6 +152,6 @@ func main() {
 }
 
 func fatal(msg string) {
-	fmt.Fprintln(os.Stderr, "certwatch: "+msg)
+	fmt.Fprintln(os.Stderr, "certlight: "+msg)
 	os.Exit(1)
 }
