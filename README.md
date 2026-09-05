@@ -89,5 +89,5 @@ Available on every tier, free included.
 
 ## Built by
 
-A practising network security engineer. Part of the Hexward line of self-hosted security tools.
+Nizar Tuanku — Cybersecurity. Part of the Hexward line of self-hosted security tools.
 Cisco Secure Firewall operations? See [Firewall Operations Platform](https://whop.com/nizar-tuanku/firewall-ops-platform?utm_source=github).
