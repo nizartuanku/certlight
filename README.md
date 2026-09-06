@@ -28,7 +28,8 @@ Runs as a single binary or container on your infrastructure. **Your host list an
 ## Quick start
 
 ```bash
-# Docker
+# Docker — build the image from this repo first; there is no published certlight image
+docker build -t certlight .
 docker run -d -p 127.0.0.1:8422:8422 -v certlight-data:/data certlight
 
 # Or the bare binary
@@ -47,6 +48,8 @@ Open `http://127.0.0.1:8422`, add your first host, and see results in seconds.
 | History | 7 days | 1 year | Unlimited |
 | Multi-user | — | — | ✅ |
 | Support | Community | Email | Priority |
+
+**Whop sells paid licences only.** Free: github.com/nizartuanku/certlight — this repository is the free edition, Apache-2.0, no time limit; nothing on Whop is free, so try it here first.
 
 Pro ($19/mo) and Team ($49/mo) licenses, each with a 14-day free trial:
 **https://whop.com/nizar-tuanku/certlight-tls-monitor?utm_source=github**
