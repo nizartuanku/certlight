@@ -44,11 +44,10 @@ For most organisations, 10 hosts will never be the limit that binds — and we w
 What usually moves people to Pro is not the host count but where the warnings go. A dashboard you have to open yourself stops getting opened by the second week. A warning that lands in Slack or email keeps getting read.
 ## Try it yourself, and do not trust it until it matches
 ```
-curl -LO https://github.com/nizartuanku/certlight/releases/latest/download/certlight-free-0.1.2-linux-amd64.tar.gz
+curl -LO https://github.com/nizartuanku/certlight/releases/latest/download/certlight-free-0.1.3-linux-amd64.tar.gz
 curl -LO https://github.com/nizartuanku/certlight/releases/latest/download/SHA256SUMS
 sha256sum -c SHA256SUMS
-tar xzf certlight-free-0.1.2-linux-amd64.tar.gz
-cd certlight-0.1.2
+tar xzf certlight-free-0.1.3-linux-amd64.tar.gz
 ./certlight -listen 127.0.0.1:8422
 ```
 Register these three public test hosts: expired.badssl.com, self-signed.badssl.com, wrong.host.badssl.com.
