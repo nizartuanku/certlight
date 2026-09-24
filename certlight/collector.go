@@ -62,7 +62,7 @@ func (c *CertLight) Describe() core.ModuleInfo {
 	return core.ModuleInfo{
 		ID:              moduleID,
 		Name:            "CertLight",
-		Version:         "0.1.1",
+		Version:         "0.1.2",
 		TargetKind:      "host:port",
 		DefaultInterval: 12 * time.Hour, // certs change slowly; be polite
 		ResolveAfter:    1,              // deterministic checks resolve immediately

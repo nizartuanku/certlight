@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.2 — 2026-09-24
 
 - **The product page is reachable from inside the product.** When a free-edition limit is reached, the message that reports it now says where the paid editions are; the dashboard carries the same link in the Licence panel and the footer. It is a product URL, not a plan id, so it keeps working when plans change. No banner, no modal, no countdown.
 - **Webhook verification identifiers renamed to Hexward.** The webhook now sends `X-Hexward-Token`, and keeps the previous header alongside it until **1 March 2027**, so a receiver written against the old name keeps working with no change at either end. A test asserts both headers carry the same secret.
