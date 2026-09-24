@@ -249,6 +249,33 @@ func languageInstruction(lang string) string {
 	return `Write the "explanation" and every "what_to_verify" item in English.`
 }
 
+// severityInstruction pins the engine's severity word for the generic
+// feature. A live DmarcWatch test (24 Sep 2026) had SmolLM3 call an "info"
+// finding "low-severity"; repeating the exact word right before the
+// answer is the cheapest reliable guard. Other features return "".
+func severityInstruction(evidence EvidencePacket) string {
+	sev := findingSeverity(evidence)
+	if sev == "" {
+		return ""
+	}
+	return fmt.Sprintf("The engine rated this finding %q. If you mention severity, use exactly that word; never call it higher or lower. ", sev)
+}
+
+// findingSeverity returns the engine's severity for generic-feature
+// packets, or "" for anything else.
+func findingSeverity(evidence EvidencePacket) string {
+	if evidence.Feature != FeatureExplainFinding {
+		return ""
+	}
+	var f struct {
+		Severity string `json:"severity"`
+	}
+	if json.Unmarshal(evidence.Finding, &f) != nil {
+		return ""
+	}
+	return strings.TrimSpace(f.Severity)
+}
+
 // chatMessage mirrors the OpenAI chat-completions message shape.
 type chatMessage struct {
 	Role    string `json:"role"`
@@ -318,7 +345,7 @@ func (c *Client) Explain(ctx context.Context, evidence EvidencePacket) (*Explana
 		Model: c.model,
 		Messages: []chatMessage{
 			{Role: "system", Content: systemPrompt + "\n7. " + languageInstruction(evidence.Language)},
-			{Role: "user", Content: string(payload) + "\n\n" + languageInstruction(evidence.Language)},
+			{Role: "user", Content: string(payload) + "\n\n" + severityInstruction(evidence) + languageInstruction(evidence.Language)},
 		},
 		// Low, not zero: some llama.cpp builds treat temperature 0 as
 		// "unset" and fall back to a sampler default. Low temperature
@@ -344,6 +371,9 @@ func (c *Client) Explain(ctx context.Context, evidence EvidencePacket) (*Explana
 
 		exp, err := c.doRequest(ctx, reqBody)
 		if err == nil {
+			if sev := findingSeverity(evidence); sev != "" {
+				exp.ExplanationText = dropConflictingSeverity(exp.ExplanationText, sev)
+			}
 			exp.Disclaimer = CanonicalDisclaimer
 			return exp, nil
 		}

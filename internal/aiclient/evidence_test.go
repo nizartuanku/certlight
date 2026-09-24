@@ -159,3 +159,13 @@ func TestExplain_DefaultsSendNoAuthNoKwargs(t *testing.T) {
 		t.Error("chat_template_kwargs must be omitted unless WithDisableThinking is set (strict endpoints reject unknown fields)")
 	}
 }
+
+func TestSeverityInstruction(t *testing.T) {
+	p, _ := NewFindingPacket("dmarcwatch", "en", CoreFinding{Check: "dmarc.no-data", Title: "No reports", Severity: "info"})
+	if got := severityInstruction(p); !strings.Contains(got, `"info"`) {
+		t.Errorf("severityInstruction = %q, want the exact engine word", got)
+	}
+	if got := severityInstruction(validEvidence()); got != "" {
+		t.Errorf("pilot features must not get a severity instruction, got %q", got)
+	}
+}
