@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- **AI Assist (optional): an ✨ Explain button on every finding.** When CertLight is started
+  with `-ai-assist-url`, a local [hexward-ai](https://github.com/nizartuanku/hexward-ai) sidecar
+  explains a finding in plain language and lists what to verify. The engine remains the only
+  source of findings and severity. Only one sanitised finding is sent (secret-like evidence keys
+  are dropped). Any AI failure shows a quiet note and changes nothing. Free edition: a sidecar on
+  the same host. Pro/Team: also a dedicated AI host or your own endpoint
+  (`-ai-assist-key-file`). English or Bahasa Indonesia (`-ai-assist-lang`). New endpoints
+  `GET /api/ai` and `POST /api/findings/explain`, covered by tests for: AI off, bad config,
+  sanitising, tier gating, sidecar down, and bad requests.
+
 ## 0.1.2 — 2026-09-24
 
 - **The product page is reachable from inside the product.** When a free-edition limit is reached, the message that reports it now says where the paid editions are; the dashboard carries the same link in the Licence panel and the footer. It is a product URL, not a plan id, so it keeps working when plans change. No banner, no modal, no countdown.

@@ -48,6 +48,10 @@ func main() {
 	tgToken := flag.String("telegram-token", "", "Telegram bot token (Pro/Team)")
 	tgChat := flag.String("telegram-chat", "", "Telegram chat id (Pro/Team)")
 	interval := flag.Duration("interval", 0, "scan interval override, e.g. 1h (Pro/Team)")
+	aiURL := flag.String("ai-assist-url", os.Getenv("CERTLIGHT_AI_ASSIST_URL"), "optional hexward-ai sidecar URL for AI-narrated explanations, e.g. http://127.0.0.1:8435 (off when empty)")
+	aiKeyFile := flag.String("ai-assist-key-file", os.Getenv("CERTLIGHT_AI_ASSIST_KEY_FILE"), "API key file for a dedicated AI host or your own OpenAI-compatible endpoint (Pro/Team)")
+	aiLang := flag.String("ai-assist-lang", os.Getenv("CERTLIGHT_AI_ASSIST_LANG"), "language of AI explanations: en (default) or id")
+	aiNoThinking := flag.Bool("ai-assist-no-thinking", os.Getenv("CERTLIGHT_AI_ASSIST_NO_THINKING") == "1", "disable reasoning mode (Qwen3 enterprise profiles)")
 	flag.Parse()
 
 	// Storage.
@@ -89,6 +93,16 @@ func main() {
 		}
 	}
 	server := web.NewServer(cw.Describe(), st, scheduler, pub, *licFile)
+
+	aiAssist, aiErr := web.NewAIAssist(web.AIConfig{URL: *aiURL, KeyFile: *aiKeyFile, Language: *aiLang, NoThinking: *aiNoThinking})
+	if aiErr != nil {
+		fmt.Fprintln(os.Stderr, "certlight: "+aiErr.Error())
+		os.Exit(2)
+	}
+	server.AI = aiAssist
+	if aiAssist != nil {
+		fmt.Fprintf(os.Stderr, "certlight: AI Assist on — explanations from %s (language %s)\n", aiAssist.Endpoint, aiAssist.Language)
+	}
 	act := server.Activation()
 
 	// Notification channels, gated by the activation's channel allowance.

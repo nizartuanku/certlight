@@ -45,6 +45,10 @@ type Server struct {
 
 	mu         sync.RWMutex
 	activation license.Activation
+
+	// AI, when set, enables the optional AI Assist "Explain this finding"
+	// button (see ai.go). nil = off, the default.
+	AI *AIAssist
 }
 
 // NewServer resolves the initial activation (reading LicenseFile if present)
@@ -84,6 +88,8 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("POST /api/scan", s.handleScanNow)
 	mux.HandleFunc("GET /api/license", s.handleGetLicense)
 	mux.HandleFunc("POST /api/license", s.handleSetLicense)
+
+	s.registerAI(mux)
 
 	sub, _ := fs.Sub(staticFS, "static")
 	mux.Handle("GET /", http.FileServer(http.FS(sub)))
