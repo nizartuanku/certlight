@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Docs: `docs/samples/` added — a real scan against public badssl.com test hosts (free edition), findings exported as the API returned them.
 - Docs: English is the supported AI Assist language in this release. Bahasa Indonesia
   (`-ai-assist-lang id`) is an unsupported preview; more languages will be added based on demand.
 

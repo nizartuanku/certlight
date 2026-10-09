@@ -25,6 +25,8 @@ Certificates expire silently and take production down with them. CertLight watch
 
 Runs as a single binary or container on your infrastructure. **Your host list and scan results never leave your network.** Outbound connections only, to the hosts you register. No telemetry, no phone-home — license validation is pure local cryptography.
 
+**See the actual output** — [a real scan, run and exported](docs/samples/): five public TLS test hosts, registered and scanned for real, findings reported exactly as the API returned them.
+
 ## Quick start
 
 ```bash

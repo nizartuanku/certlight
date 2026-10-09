@@ -1,0 +1,13 @@
+{
+    "product": "CertLight",
+    "tier": "free",
+    "counts": {
+        "critical": 1,
+        "high": 3,
+        "medium": 6
+    },
+    "open_total": 10,
+    "targets": 5,
+    "max_targets": 10,
+    "can_scan_now": false
+}
