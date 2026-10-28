@@ -27,6 +27,7 @@ import (
 	"github.com/nizartuanku/certlight/sched"
 	"github.com/nizartuanku/certlight/store"
 	"github.com/nizartuanku/certlight/web"
+	"github.com/nizartuanku/hexward-core/hfs"
 )
 
 // issuerPublicKey is baked in at build time:
@@ -41,9 +42,7 @@ func main() {
 	listen := flag.String("listen", "127.0.0.1:8422", "dashboard listen address")
 	dbPath := flag.String("db", "certlight.db", "SQLite database path")
 	licFile := flag.String("license", "license.key", "license key file")
-	webhook := flag.String("webhook", "", "webhook URL for notifications (all tiers)")
-	syslogAddr := flag.String("syslog", "", "syslog collector host:port for findings, e.g. 127.0.0.1:5514 (point this at Loglight to correlate across products)")
-	syslogNet := flag.String("syslog-network", "udp", "syslog transport: udp or tcp")
+	chf := registerChannelFlags(flag.CommandLine)
 	slackURL := flag.String("slack-webhook", "", "Slack incoming-webhook URL (Pro/Team)")
 	tgToken := flag.String("telegram-token", "", "Telegram bot token (Pro/Team)")
 	tgChat := flag.String("telegram-chat", "", "Telegram chat id (Pro/Team)")
@@ -93,6 +92,8 @@ func main() {
 		}
 	}
 	server := web.NewServer(cw.Describe(), st, scheduler, pub, *licFile)
+	server.ExportMeta = hfs.Meta{Product: cw.Describe().ID, Version: cw.Describe().Version, Host: hostname()}
+	server.ExportEvidence = chf.evidenceMode()
 
 	aiAssist, aiErr := web.NewAIAssist(web.AIConfig{URL: *aiURL, KeyFile: *aiKeyFile, Language: *aiLang, NoThinking: *aiNoThinking})
 	if aiErr != nil {
@@ -107,12 +108,10 @@ func main() {
 
 	// Notification channels, gated by the activation's channel allowance.
 	// A disallowed flag is refused loudly at startup, never silently dropped.
-	var channels []notify.Channel
-	if *webhook != "" {
-		channels = append(channels, &notify.WebhookChannel{URL: *webhook})
-	}
-	if *syslogAddr != "" {
-		channels = append(channels, &notify.SyslogChannel{Addr: *syslogAddr, Network: *syslogNet})
+	channels, chErr := chf.build(hfs.Meta{Product: cw.Describe().ID, Version: cw.Describe().Version, Host: hostname()})
+	if chErr != nil {
+		fmt.Fprintln(os.Stderr, "certlight: "+chErr.Error())
+		os.Exit(2)
 	}
 	if *slackURL != "" {
 		if !act.AllowsChannel("slack") {
