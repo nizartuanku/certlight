@@ -174,5 +174,5 @@ Environment equivalents: `CERTLIGHT_AI_ASSIST_URL`, `CERTLIGHT_AI_ASSIST_KEY_FIL
 
 ## Built by
 
-Nizar Tuanku — Cybersecurity. Part of the Hexward line of self-hosted security tools.
+Nizar Tuanku — Cybersecurity Tools + AI. Part of the Hexward line of self-hosted security tools.
 Cisco Secure Firewall operations? See [Firewall Operations Platform](https://whop.com/nizar-tuanku/firewall-ops-platform?utm_source=github).
